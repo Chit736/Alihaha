@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 17, 2026 at 09:23 PM
+-- Generation Time: Oct 20, 2026 at 05:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -112,7 +112,8 @@ INSERT INTO `orders` (`id`, `user_id`, `total`, `status`, `address`, `phone`, `c
 (17, 1, 4828.95, 'pending', 'Yangon, Yangon 07073', '+959897032297', '2026-10-17 09:21:36'),
 (18, 1, 4828.95, 'pending', 'Yangon, Yangon 07073', '+959897032297', '2026-10-17 09:22:31'),
 (19, 2, 86.90, 'pending', 'Yangon, Yangon 07073', '+959897032297', '2026-10-17 10:29:07'),
-(20, 2, 5456.85, 'pending', 'Yangon, Yangon 07073', '+959897032297', '2026-10-17 16:07:36');
+(20, 2, 5456.85, 'pending', 'Yangon, Yangon 07073', '+959897032297', '2026-10-17 16:07:36'),
+(21, 4, 1443.75, 'pending', 'Yangon, Yangon 07073', '+959897032297', '2026-10-20 13:49:22');
 
 -- --------------------------------------------------------
 
@@ -161,7 +162,11 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) 
 (26, 19, 22, 1, 78.00),
 (27, 20, 19, 1, 299.00),
 (28, 20, 18, 1, 4599.00),
-(29, 20, 13, 1, 299.00);
+(29, 20, 13, 1, 299.00),
+(30, 21, 25, 1, 78.00),
+(31, 21, 26, 1, 299.00),
+(32, 21, 28, 1, 299.00),
+(33, 21, 27, 1, 699.00);
 
 -- --------------------------------------------------------
 
@@ -300,13 +305,13 @@ ALTER TABLE `manufacturers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `products`
