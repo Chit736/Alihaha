@@ -54,14 +54,14 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
 }
 
 //  category update
-$sql = "UPDATE products SET title=?, price=?, description=?, category=?, image=? WHERE id=?";
+$sql = "UPDATE products SET title=?, price=?, description=?, category_id=?, image=? WHERE id=?";
 $stmt = $conn->prepare($sql);
 
 if ($stmt === false) {
     die("Prepare failed: " . $conn->error);
 }
 
-$stmt->bind_param("sdsssi", $name, $price, $description, $category, $image, $id);
+$stmt->bind_param("sdssii", $title, $price, $description, $category, $image, $id);
 
 if ($stmt->execute()) {
     header("Location: products.php?success=Product updated successfully!");

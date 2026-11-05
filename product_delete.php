@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])){
     header ("location: login.php?error=" . urlencode("Please login to add products."));
     exit();
 }
-
+    
 if(isset($_GET['id'])){
     $id = intval($_GET['id']);
     $user_id = $_SESSION['user_id'];
@@ -24,13 +24,13 @@ if(isset($_GET['id'])){
         $row = $result->fetch_assoc();
 
         // Admin မဟုတ်ရင် ပြီးတော့ ကိုပစွည်းမဟုတ်ရင် ဖျက်ခွင့်မပြုဘူး 
-        if($user_role !== 'admin' && $product['seller_id'] != $user_id){
+        if($user_role !== 'admin' && $row['seller_id'] != $user_id){
             header("location: products.php? error =" . urlencode ("You can only delete your own products."));
             exit();
         }
         // ပုံဖျက်မယ် 
-        if($product['image'] && file_exits("image/" . $product['image'])){
-            unlink("image"/ . $product['image']);
+        if($row['image'] && file_exists("image/" . $row['image'])){
+            unlink("image/" . $row['image']);
         }
 
         // ပစွည်းဖျက်မယ်
@@ -43,7 +43,7 @@ if(isset($_GET['id'])){
         header("location: products.php?success=Product deleted successfully!");
         exit();
     }}
-    header("location: products.php");
+    header("location: products.php"); 
     exit();
 
 ?>
