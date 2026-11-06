@@ -10,6 +10,75 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     exit();
 }
 
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+$category = isset($_GET['category']) ? trim($_GET['category']) : 'all';
+$manufacturer_filter = isset($_GET['manufacturer']) ? intval($_GET['manufacturer']) : 0;
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
+
+
+//SQL Query Dynamic ဖန်တီ:
+
+$sql = "SELECT p.*, m.name AS m_name, m.country AS m_country, m.flag AS m_flag 
+        FROM products p 
+        LEFT JOIN manufacturers m ON p.supplier_id = m.id 
+        LEFT JOIN categories c ON p.category_id = c.id
+        WHERE 1=1";
+$params = [];
+$types = "";
+
+// Search filter
+if (!empty($search)) {
+    $sql .= " AND p.title LIKE ?";
+    $params[] = "%" . $search . "%";
+    $types .= "s";
+}
+
+// Category filter
+if ($category !== 'all') {
+    $sql .= " AND c.name = ?";
+    $params[] = $category;
+    $types .= "s";
+}
+
+// Manufacturer filter
+if ($manufacturer_filter > 0) {
+    $sql .= " AND p.supplier_id = ?";
+    $params[] = $manufacturer_filter;
+    $types .= "i";
+}
+
+// Sort
+switch ($sort) {
+    case 'price_low':
+        $sql .= " ORDER BY p.price ASC";
+        break;
+    case 'price_high':
+        $sql .= " ORDER BY p.price DESC";
+        break;
+    case 'title':
+        $sql .= " ORDER BY p.title ASC";
+        break;
+    default:
+        $sql .= " ORDER BY p.id DESC";
+}
+
+$stmt = $conn->prepare($sql);
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
+}
+$stmt->execute();
+$result = $stmt->get_result();
+$total_products = $result->num_rows;
+
+//  Categories List
+$categories = [
+    'all' => ['label' => 'All', 'icon' => 'fa-th-large'],
+    'General' => ['label' => 'General', 'icon' => 'fa-box'],
+    'Industrial Machinery' => ['label' => 'Machinery', 'icon' => 'fa-industry'],
+    'Chemicals' => ['label' => 'Chemicals', 'icon' => 'fa-flask'],
+    'Testing Instrument' => ['label' => 'Instruments', 'icon' => 'fa-microscope'],
+];
+
 $user_id = intval($_SESSION['user_id']);
 
 //  Filter
@@ -207,17 +276,25 @@ $status_config = [
     <!--  HEADER -->
 
     <header class="glass backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-100">
-        <div class="px-4 py-3 flex items-center justify-between">
+         <div class="px-4 py-3 flex items-center justify-between gap-4">
             <div class="flex items-center gap-3 flex-1">
-                <div class="flex items-center justify-center text-black font-bold text-lg">
+                <div class="flex items-center justify-center text-orange-500 font-bold text-lg flex-shrink-0">
                     Alihaha
                 </div>
-                <div class="flex-1 bg-blue-800 rounded-full px-3 py-2 flex items-center gap-2">
-                    <i class="fas fa-search text-orange-500 text-sm"></i>
-                    <span class="text-sm text-orange-500">Search products...</span>
-                </div>
+                <form method="GET" action="products.php" class="glass rounded-2xl px-4 py-2.5 flex items-center gap-2 flex-1 justify-end" style="width: 50%;">
+                    <i class="fas fa-search text-orange-500"></i>
+                    <input type="text" name="search"
+                        value="<?php echo htmlspecialchars($search); ?>"
+                        placeholder="Search products..."
+                        class="bg-transparent text-sm text-gray-700 placeholder-gray-400 focus:outline-none w-full">
+
+                    <!--  Search ခလုတ် ထည့်ပါ -->
+                    <button type="submit" class="text-orange-500">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
             </div>
-            <div class="flex items-center gap-3 ml-3">
+            <div class="flex items-center gap-3 ml-3 flex-shrink-0">
                 <i class="fas fa-camera text-black"></i>
                 <a href="messenger.php" class="relative">
                     <i class="fas fa-bell text-black"></i>

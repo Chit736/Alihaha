@@ -318,17 +318,25 @@ $industry_hubs = [
     <!--  HEADER -->
     
     <header class="glass backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-100">
-        <div class="px-4 py-3 flex items-center justify-between">
+       <div class="px-4 py-3 flex items-center justify-between gap-4">
             <div class="flex items-center gap-3 flex-1">
-                <div class="flex items-center justify-center text-black font-bold text-lg">
+                <div class="flex items-center justify-center text-orange-500 font-bold text-lg flex-shrink-0">
                     Alihaha
                 </div>
-                <div class="flex-1 bg-blue-800 rounded-full px-3 py-2 flex items-center gap-2">
-                    <i class="fas fa-search text-orange-500 text-sm"></i>
-                    <span class="text-sm text-orange-500">Search products...</span>
-                </div>
+                <form method="GET" action="products.php" class="glass rounded-2xl px-4 py-2.5 flex items-center gap-2 flex-1 justify-end" style="width: 50%;">
+                    <i class="fas fa-search text-orange-500"></i>
+                    <input type="text" name="search"
+                        value="<?php echo htmlspecialchars($search); ?>"
+                        placeholder="Search products..."
+                        class="bg-transparent text-sm text-gray-700 placeholder-gray-400 focus:outline-none w-full">
+
+                    <!--  Search ခလုတ် ထည့်ပါ -->
+                    <button type="submit" class="text-orange-500">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
             </div>
-            <div class="flex items-center gap-3 ml-3">
+            <div class="flex items-center gap-3 ml-3 flex-shrink-0">
                 <i class="fas fa-camera text-black"></i>
                 <a href="messenger.php" class="relative">
                     <i class="fas fa-bell text-black"></i>
