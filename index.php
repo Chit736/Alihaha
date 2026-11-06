@@ -319,7 +319,7 @@ $suggestions = [
     <!--  HEADER -->
 
     <header class="glass backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-100">
-         <div class="px-4 py-3 flex items-center justify-between gap-4">
+        <div class="px-4 py-3 flex items-center justify-between gap-4">
             <div class="flex items-center gap-3 flex-1">
                 <div class="flex items-center justify-center text-orange-500 font-bold text-lg flex-shrink-0">
                     Alihaha
@@ -350,20 +350,20 @@ $suggestions = [
             <div class="flex justify-around px-2">
                 <a href="index.php" class="flex-1 text-center py-2.5 text-sm font-semibold 
                 <?php echo ($current_page == 'index.php') ? 'text-orange-500 border-b-2 border-orange-500' :
-                'text-black hover:text-orange-500'; ?>">Home</a>
+                    'text-black hover:text-orange-500'; ?>">Home</a>
 
                 <a href="products.php" class="flex-1 text-center py-2.5 text-sm font-semibold 
-                <?php echo ($current_page == 'products.php') ? 'text-orange-500 border-b-2 border-orange-500':
-                 'text-black hover:text-orange-500'; ?>">Products</a>
+                <?php echo ($current_page == 'products.php') ? 'text-orange-500 border-b-2 border-orange-500' :
+                    'text-black hover:text-orange-500'; ?>">Products</a>
 
                 <a href="manufacturers.php" class="flex-1 text-center py-2.5 text-sm font-semibold
                 <?php echo ($current_page == 'manufacturers.php') ? 'text-orange-500 border-b-2 border-orange-500' :
-                 'text-black hover:text-orange-500'; ?>">Manufacturers</a>
+                    'text-black hover:text-orange-500'; ?>">Manufacturers</a>
 
 
                 <a href="worldwide.php" class="flex-1 text-center py-2.5 text-sm font-semibold
-                <?php echo ($current_page =='worldwide.php') ? 'text-orange-500 border-b-2 border-orange-500':
-                 'text-black hover:text-orange-500';?>">Worldwide</a>
+                <?php echo ($current_page == 'worldwide.php') ? 'text-orange-500 border-b-2 border-orange-500' :
+                    'text-black hover:text-orange-500'; ?>">Worldwide</a>
             </div>
         </nav>
     </header>
@@ -569,30 +569,60 @@ $suggestions = [
 
                 <div class="flex gap-3 overflow-x-auto hide-scroll px-4 pb-2">
                     <?php foreach ($trending as $p): ?>
-                        <a href="cart-add.php?id=<?php echo $p['id']; ?>"
-                            class="min-w-[160px] bg-blue-800 rounded-1xl shadow-sm border p-1 border-orange-500 overflow-hidden hover-lift">
-                            <div class="relative">
+                    
+                        <div class="min-w-[160px] bg-blue-800 rounded-xl shadow-sm border p-1 border-orange-500 overflow-hidden hover-lift flex flex-col">
+
+                           
+                            <a href="cart_add.php?id=<?php echo $p['id']; ?>" class="relative block">
                                 <?php if ($p['image']): ?>
                                     <img src="image/<?php echo htmlspecialchars($p['image']); ?>"
-                                        class="w-full h-32 rounded-1xl object-cover">
+                                        class="w-full h-32 rounded-lg object-cover">
                                 <?php else: ?>
-                                    <div class="w-full h-32 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400">
+                                    <div class="w-full h-32 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400 rounded-lg">
                                         <i class="fas fa-image text-2xl"></i>
                                     </div>
                                 <?php endif; ?>
                                 <span class="absolute top-2 left-2 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">
                                     🔥 HOT
                                 </span>
-                            </div>
-                            <div class="p-2.5">
-                                <h3 class="text-xs font-semibold text-white truncate">
-                                    <?php echo htmlspecialchars($p['title']); ?>
-                                </h3>
+                            </a>
+
+                        
+                            <div class="p-2.5 flex-1">
+                                <a href="cart_add.php?id=<?php echo $p['id']; ?>">
+                                    <h3 class="text-xs font-semibold text-white truncate hover:text-orange-400 transition">
+                                        <?php echo htmlspecialchars($p['title']); ?>
+                                    </h3>
+                                </a>
                                 <p class="text-orange-500 font-bold text-sm mt-1">
                                     $<?php echo number_format($p['price'], 2); ?>
                                 </p>
                             </div>
-                        </a>
+
+                            
+                            <div class="flex gap-1 p-2 pt-0">
+                                <a href="cart_add.php?id=<?php echo $p['id']; ?>"
+                                    class="flex-1 text-center text-xs bg-gradient-to-r from-orange-500 to-orange-600 text-white py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition shadow-sm shadow-orange-200">
+                                    <i class="fas fa-cart-plus mr-1"></i> Add
+                                </a>
+                                <?php
+                                $is_admin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
+                                $is_owner = (isset($_SESSION['user_id']) && $p['seller_id'] == $_SESSION['user_id']);
+
+                                if ($is_admin || $is_owner):
+                                ?>
+                                    <a href="product_edit.php?id=<?php echo $p['id']; ?>"
+                                        class="w-8 h-8 bg-blue-50 text-blue-500 rounded-lg flex items-center justify-center hover:bg-blue-100 transition">
+                                        <i class="fas fa-edit text-xs"></i>
+                                    </a>
+                                    <a href="product_delete.php?id=<?php echo $p['id']; ?>"
+                                        onclick="return confirm('Are you sure?')"
+                                        class="w-8 h-8 bg-red-50 text-red-500 rounded-lg flex items-center justify-center hover:bg-red-100 transition">
+                                        <i class="fas fa-trash text-xs"></i>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     <?php endforeach; ?>
                 </div>
             </section>
@@ -846,25 +876,25 @@ $suggestions = [
 
     <!-- BOTTOM NAVIGATION -->
 
-     <!--  BOTTOM NAVIGATION -->
-   <!-- BOTTOM NAVIGATION -->
-<nav class="fixed bottom-0 left-0 right-0 glass backdrop-blur-md border-t border-gray-200 flex justify-around py-2 z-50">
-    <a href="index.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'index.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
-        <i class="fas fa-home text-xl mb-1"></i><span>Home</span>
-    </a>
-    <a href="tips.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'tips.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
-        <i class="fas fa-eye text-xl mb-1"></i><span>Tips</span>
-    </a>
-    <a href="messenger.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'messenger.php' || $current_page == 'chat.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
-        <i class="fas fa-comment-dots text-xl mb-1"></i><span>Messenger</span>
-    </a>
-    <a href="cart.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'cart.php' || $current_page == 'checkout.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
-        <i class="fas fa-shopping-cart text-xl mb-1"></i><span>Cart</span>
-    </a>
-    <a href="my-account.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'my-account.php' || $current_page == 'my-order.php' || $current_page == 'order-detail.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
-        <i class="fas fa-user text-xl mb-1"></i><span>My Alihaha</span>
-    </a>
-</nav>
+    <!--  BOTTOM NAVIGATION -->
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="fixed bottom-0 left-0 right-0 glass backdrop-blur-md border-t border-gray-200 flex justify-around py-2 z-50">
+        <a href="index.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'index.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
+            <i class="fas fa-home text-xl mb-1"></i><span>Home</span>
+        </a>
+        <a href="tips.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'tips.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
+            <i class="fas fa-eye text-xl mb-1"></i><span>Tips</span>
+        </a>
+        <a href="messenger.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'messenger.php' || $current_page == 'chat.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
+            <i class="fas fa-comment-dots text-xl mb-1"></i><span>Messenger</span>
+        </a>
+        <a href="cart.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'cart.php' || $current_page == 'checkout.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
+            <i class="fas fa-shopping-cart text-xl mb-1"></i><span>Cart</span>
+        </a>
+        <a href="my-account.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'my-account.php' || $current_page == 'my-order.php' || $current_page == 'order-detail.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
+            <i class="fas fa-user text-xl mb-1"></i><span>My Alihaha</span>
+        </a>
+    </nav>
 </body>
 
 </html>
