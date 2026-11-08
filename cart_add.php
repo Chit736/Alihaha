@@ -26,6 +26,7 @@ if(isset($_GET['id'])){
 }else{
     header("location: products.php?error=Invalid product.");
     exit();
+    
 }
 
 ?>

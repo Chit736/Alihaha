@@ -8,6 +8,12 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     exit();
 }
 
+$user_role = $_SESSION['role'] ?? 'buyer';
+if($user_role !== 'admin' && $user_role !== 'seller'){
+    header("location: products.php?error=" . urlencode("Only Seller can add products.Please register as a seller."));
+    exit();
+}
+
 //  POST — စစ်
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: product_create.php");
@@ -33,23 +39,29 @@ $image = '';
 
 if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
     $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+    $file_name = $_FILES['image']['name'];
+    $file_tmp = $_FILES['image']['tmp_name'];
     $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
 
+    //extension စစ်
     if (!in_array($ext, $allowed)) {
         header("Location: product_create.php?error=" . urlencode("Invalid image type."));
         exit();
     }
 
-    $target_dir = "image/";
+    $target_dir = "upload/logos/";
     if (!is_dir($target_dir)) {
         mkdir($target_dir, 0777, true);
     }
 
-    $image = time() . '_' . basename($_FILES['image']['name']);
-    $target_file = $target_dir . $image;
+    $new_image_name = time() . '_' . uniqid(). '.' . $ext;
+    $target_file = $target_dir . $new_image_name;
 
-    if (!move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-        header("Location: product_create.php?error=" . urlencode("Failed to upload image."));
+    if (move_uploaded_file($file_tmp, $target_file)) {
+        $image = $new_image_name;
+    }else{
+        header("Location: product_create.php?error=" . urlencode("Failed to upload image. Check folder permission."));
         exit();
     }
 }

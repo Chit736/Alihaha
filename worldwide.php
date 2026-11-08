@@ -428,7 +428,7 @@ $industry_hubs = [
                             <!-- Image -->
                             <div class="relative">
                                 <?php if ($p['image']): ?>
-                                    <img src="image/<?php echo htmlspecialchars($p['image']); ?>" 
+                                    <img src="upload/logos/<?php echo htmlspecialchars($p['image']); ?>" 
                                          class="w-full h-36 object-cover">
                                 <?php else: ?>
                                     <div class="w-full h-36 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400">

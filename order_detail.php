@@ -609,7 +609,7 @@ $days_remaining = max(0, ceil((strtotime('+5 days', $order_date) - time()) / 864
                         <!-- Image -->
                         <div class="relative flex-shrink-0">
                             <?php if ($item['image']): ?>
-                                <img src="image/<?php echo htmlspecialchars($item['image']); ?>" 
+                                <img src="upload/logos/<?php echo htmlspecialchars($item['image']); ?>" 
                                      class="w-40 h-30 object-cover rounded-xl">
                             <?php else: ?>
                                 <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center text-gray-400">

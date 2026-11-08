@@ -28,6 +28,13 @@ if ($result->num_rows == 0) {
 $product = $result->fetch_assoc();
 $stmt->close();
 
+$user_role = $_SESSION['role'] ?? 'buyer';
+$user_id = intval($_SESSION['user_id']);
+if($user_role !== 'admin' && $product['seller_id'] != $user_id){
+    header("location: products.php?error =" . urlencode("You can only edit your own products."));
+    exit();
+}
+
 //  Database ထဲက Category တွေကို ဆွဲထုတ်မယ်
 $categories = $conn->query("SELECT id, name FROM categories ORDER BY name");
 ?>

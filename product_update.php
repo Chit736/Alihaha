@@ -12,12 +12,32 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     exit();
 }
 
+$user_role = $_SESSION['role'] ?? 'buyer';
+if($user_role !== 'admin' && $user_role !== 'seller'){
+    header("location: products.php?error=" .urlencode("Only Sellers can edit products."));
+    exit();
+}
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die("Invalid request method.");
 }
 
 $id = intval($_POST['id']);
-$name = htmlspecialchars(trim($_POST['name']));
+
+$own_check = $conn->prepare("SELECT seller_id FROM products WHERE id=?");
+$own_check->bind_param("i",$id);
+$own_check->execute();
+$own_row = $own_check->get_result()->fetch_assoc();
+$own_check->close();
+if(!$own_row){
+    header("location: products.php?error=Product not found.");
+    exit();
+}
+if($user_role !=='admin' && $own_row['seller_id'] = $_SESSION['user_id']){
+    header("location: products.php?error=" . urlencode("You can only edit your own products."));
+    exit();
+}
+
+$name = htmlspecialchars(trim($_POST['title']));
 $price = $_POST['price'];
 $description = htmlspecialchars(trim($_POST['description']));
 $category = isset($_POST['category']) ? htmlspecialchars(trim($_POST['category'])) : 'General';
@@ -34,7 +54,7 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         exit();
     }
     
-    $target_dir = "image/";
+    $target_dir = "upload/logos/";
     if (!is_dir($target_dir)) {
         mkdir($target_dir, 0777, true);
     }

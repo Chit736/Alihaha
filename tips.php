@@ -48,7 +48,7 @@ $tips_videos = [
         'author' => 'Alihaha Academy',
         'views' => '12.5K',
         'duration' => '5:24',
-        'video_id' => 'https://youtube.com/shorts/xMEPAYyZH7k?si=KFH9m8vpaS5WEFty', // ဒီနေရာမှာ သင့ YouTube Video ID ထည့်မှရတယ်
+        'video_id' => '85AQ-AD8R2H9gy3g', // စမ်းသပ်ရန် နာမည်ကြီး Video ID တစ်ခု
         'tag' => 'Tutorial'
     ],
     [
@@ -56,7 +56,7 @@ $tips_videos = [
         'author' => 'Business Pro',
         'views' => '8.3K',
         'duration' => '3:45',
-        'video_id' => 'https://youtube.com/shorts/ho0EhuO3RNs?si=wnFTibw-ZgPw5kDH', 
+        'video_id' => 'jNQXAC9IVRw', // စမ်းသပ်ရန်
         'tag' => 'Tips'
     ],
     [
@@ -64,7 +64,7 @@ $tips_videos = [
         'author' => 'Trade Expert',
         'views' => '15.2K',
         'duration' => '7:12',
-        'video_id' => 'https://youtube.com/shorts/RcHz051o-70?si=ErALfNn53YqhtuL2',
+        'video_id' => 'aqz-KE-bpKQ', // စမ်းသပ်ရန်
         'tag' => 'Safety'
     ],
     [
@@ -72,7 +72,7 @@ $tips_videos = [
         'author' => 'Alihaha Academy',
         'views' => '6.8K',
         'duration' => '4:30',
-        'video_id' => 'https://youtube.com/shorts/9OkFD10Idew?si=-2ziBS-dUXU9MD2_',
+        'video_id' => 'M7lc1UVf-VE', // စမ်းသပ်ရန်
         'tag' => 'AI'
     ],
 ];
@@ -131,6 +131,7 @@ $tips_list = [
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -138,45 +139,105 @@ $tips_list = [
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-        .bottom-nav-item.active { color: #f97316; }
-        .bottom-nav-item.active i { color: #f97316; }
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .bottom-nav-item.active {
+            color: #f97316;
+        }
+
+        .bottom-nav-item.active i {
+            color: #f97316;
+        }
 
         /*  Animations */
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
         }
-        .animate-float { animation: float 3s ease-in-out infinite; }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
 
         @keyframes pulse-ring {
-            0% { transform: scale(0.95); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.6; }
-            100% { transform: scale(0.95); opacity: 1; }
+            0% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
         }
-        .pulse-ring { animation: pulse-ring 2s ease-in-out infinite; }
+
+        .pulse-ring {
+            animation: pulse-ring 2s ease-in-out infinite;
+        }
 
         @keyframes slide-in {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .slide-in { animation: slide-in 0.4s ease-out; }
+
+        .slide-in {
+            animation: slide-in 0.4s ease-out;
+        }
 
         @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
+            0% {
+                background-position: -1000px 0;
+            }
+
+            100% {
+                background-position: 1000px 0;
+            }
         }
+
         .shimmer {
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             background-size: 1000px 100%;
             animation: shimmer 2s infinite;
         }
 
         @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
+
         .gradient-animate {
             background-size: 200% 200%;
             animation: gradient-shift 4s ease infinite;
@@ -194,6 +255,7 @@ $tips_list = [
         .tip-card {
             transition: all 0.3s ease;
         }
+
         .tip-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 20px 40px rgba(249, 115, 22, 0.15);
@@ -203,6 +265,7 @@ $tips_list = [
         .topic-card {
             transition: all 0.3s ease;
         }
+
         .topic-card:hover {
             transform: scale(1.03);
         }
@@ -228,6 +291,7 @@ $tips_list = [
         .cat-pill {
             transition: all 0.3s ease;
         }
+
         .cat-pill:hover {
             transform: translateY(-2px) scale(1.02);
         }
@@ -236,6 +300,7 @@ $tips_list = [
         .tip-list-item:hover .tip-icon {
             transform: scale(1.1) rotate(-5deg);
         }
+
         .tip-icon {
             transition: transform 0.3s ease;
         }
@@ -245,13 +310,23 @@ $tips_list = [
             box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
             animation: pulse-live 2s infinite;
         }
+
         @keyframes pulse-live {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
         }
     </style>
 </head>
+
 <body class="bg-blue-800 font-sans pb-16">
 
     <!-- HEADER -->
@@ -342,7 +417,7 @@ $tips_list = [
                             <div class="absolute top-2 right-2 w-8 h-8 bg-black/40 backdrop-blur rounded-full flex items-center justify-center z-10">
                                 <i class="fas fa-lock text-white text-xs"></i>
                             </div>
-                            
+
                             <div class="absolute bottom-0 left-0 right-0 p-3 text-white z-10">
                                 <div class="text-3xl mb-1"><?php echo $topic['emoji']; ?></div>
                                 <p class="text-xs font-bold"><?php echo $topic['title']; ?></p>
@@ -357,8 +432,8 @@ $tips_list = [
             <!-- LOGGED IN - FULL VIEW -->
 
             <!-- HERO SECTION -->
-        <section class="relative overflow-hidden text-white mx-4 mt-4 rounded-3xl"
-            style="background-image: url('image/shopping8.jpeg'); background-position: left;">
+            <section class="relative overflow-hidden text-white mx-4 mt-4 rounded-3xl"
+                style="background-image: url('image/shopping8.jpeg'); background-position: left;">
 
                 <div class="blob w-32 h-32 bg-purple-500 top-0 -right-10"></div>
                 <div class="blob w-24 h-24 bg-orange-500 bottom-0 -left-10"></div>
@@ -414,7 +489,7 @@ $tips_list = [
                             <div class="absolute top-3 right-3 flex items-center gap-1 z-10">
                                 <span class="w-2 h-2 bg-red-400 rounded-full live-dot"></span>
                             </div>
-                            
+
                             <div class="absolute bottom-0 left-0 right-0 p-3 text-white z-10">
                                 <div class="text-4xl mb-2 animate-float"><?php echo $topic['emoji']; ?></div>
                                 <p class="text-xs font-bold mb-0.5"><?php echo $topic['title']; ?></p>
@@ -457,16 +532,22 @@ $tips_list = [
                 <div class="flex gap-3 overflow-x-auto hide-scroll px-4 pb-2">
                     <?php foreach ($tips_videos as $video): ?>
                         <div class="tip-card min-w-[240px] bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                            
-                            <!-- YouTube Video (Iframe) -->
-                            <div class="relative h-32 bg-black">
-                                <iframe class="w-full h-full" 
-                                        src="https://www.youtube.com/embed/<?php echo $video['video_id']; ?>" 
-                                        title="YouTube video player" 
-                                        frameborder="0" 
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowfullscreen>
-                                </iframe>
+
+                            <!-- YouTube Video (Thumbnail ပုံစံဖြင့် ပြသခြင်း) -->
+                            <div class="relative h-32 bg-black cursor-pointer group"
+                                onclick="window.open('https://www.youtube.com/watch?v=<?php echo $video['video_id']; ?>', '_blank')">
+
+                                <!-- Video ရဲ့ ပုံ (Thumbnail) -->
+                                <img src="https://img.youtube.com/vi/<?php echo $video['video_id']; ?>/hqdefault.jpg"
+                                    class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-300"
+                                    alt="<?php echo htmlspecialchars($video['title']); ?>">
+
+                                <!-- အနီရောင် Play ခလုတ် အလှဆင် -->
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition duration-300">
+                                        <i class="fas fa-play text-white text-sm ml-1"></i>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Content -->
@@ -536,7 +617,7 @@ $tips_list = [
         <?php endif; ?>
     </main>
 
-  <footer class="glass border-t border-gray-200 mt-8 pb-20">
+    <footer class="glass border-t border-gray-200 mt-8 pb-20">
         <!--  Links Grid -->
         <div class="max-w-6xl mx-auto px-4 py-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
@@ -715,24 +796,24 @@ $tips_list = [
 
     <!-- BOTTOM NAVIGATION -->
 
-     <!-- BOTTOM NAVIGATION -->
-<nav class="fixed bottom-0 left-0 right-0 glass backdrop-blur-md border-t border-gray-200 flex justify-around py-2 z-50">
-    <a href="index.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'index.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
-        <i class="fas fa-home text-xl mb-1"></i><span>Home</span>
-    </a>
-    <a href="tips.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'tips.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
-        <i class="fas fa-eye text-xl mb-1"></i><span>Tips</span>
-    </a>
-    <a href="messenger.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'messenger.php' || $current_page == 'chat.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
-        <i class="fas fa-comment-dots text-xl mb-1"></i><span>Messenger</span>
-    </a>
-    <a href="cart.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'cart.php' || $current_page == 'checkout.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
-        <i class="fas fa-shopping-cart text-xl mb-1"></i><span>Cart</span>
-    </a>
-    <a href="my-account.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'my-account.php' || $current_page == 'my-order.php' || $current_page == 'order-detail.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
-        <i class="fas fa-user text-xl mb-1"></i><span>My Alihaha</span>
-    </a>
-</nav>
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="fixed bottom-0 left-0 right-0 glass backdrop-blur-md border-t border-gray-200 flex justify-around py-2 z-50">
+        <a href="index.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'index.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
+            <i class="fas fa-home text-xl mb-1"></i><span>Home</span>
+        </a>
+        <a href="tips.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'tips.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
+            <i class="fas fa-eye text-xl mb-1"></i><span>Tips</span>
+        </a>
+        <a href="messenger.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'messenger.php' || $current_page == 'chat.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
+            <i class="fas fa-comment-dots text-xl mb-1"></i><span>Messenger</span>
+        </a>
+        <a href="cart.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'cart.php' || $current_page == 'checkout.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
+            <i class="fas fa-shopping-cart text-xl mb-1"></i><span>Cart</span>
+        </a>
+        <a href="my-account.php" class="bottom-nav-item flex flex-col items-center text-xs <?php echo ($current_page == 'my-account.php' || $current_page == 'my-order.php' || $current_page == 'order-detail.php') ? 'text-orange-500 active' : 'text-black hover:text-orange-500'; ?>">
+            <i class="fas fa-user text-xl mb-1"></i><span>My Alihaha</span>
+        </a>
+    </nav>
 
 </body>
 

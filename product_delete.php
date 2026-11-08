@@ -29,8 +29,8 @@ if(isset($_GET['id'])){
             exit();
         }
         // ပုံဖျက်မယ် 
-        if($row['image'] && file_exists("image/" . $row['image'])){
-            unlink("image/" . $row['image']);
+        if($row['image'] && file_exists("upload/logos/" . $row['image'])){
+            unlink("upload/logos/" . $row['image']);
         }
 
         // ပစွည်းဖျက်မယ်

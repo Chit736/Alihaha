@@ -272,9 +272,13 @@ $categories = [
                             <span class="w-2 h-2 bg-green-300 rounded-full pulse-ring"></span>
                             <span class="text-xs font-medium">🔥 HOT DEALS</span>
                         </div>
-                        <a href="product_create.php" class="glass rounded-full w-9 h-9 flex items-center justify-center text-black hover:bg-white/20 transition">
-                            <i class="fas fa-plus text-sm"></i>
-                        </a>
+                        <?php
+                        $can_add = isset($_SESSION['user_id']) && in_array($_SESSION['role'] ?? 'buyer', ['admin', 'seller']);
+                        if ($can_add): ?>
+                            <a href="product_create.php" class="glass rounded-full w-9 h-9 flex items-center justify-center text-black hover:bg-white/20 transition">
+                                <i class="fas fa-plus text-sm"></i>
+                            </a>
+                        <?php endif; ?>
                     </div>
 
                     <h2 class="text-2xl font-bold mb-1">Discover Products</h2>
@@ -341,7 +345,7 @@ $categories = [
                             'newest' => 'Newest',
                             'price_low' => 'Price ↑',
                             'price_high' => 'Price ↓',
-                            'name' => 'Name',
+                            'title' => 'Name',
                         ];
                         foreach ($sorts as $key => $label):
                             $is_active = ($sort === $key);
@@ -397,7 +401,7 @@ $categories = [
                                 <!-- Image -->
                                 <div class="relative overflow-hidden">
                                     <?php if ($p['image']): ?>
-                                        <img src="image/<?php echo htmlspecialchars($p['image']); ?>"
+                                        <img src="upload/logos/<?php echo htmlspecialchars($p['image']); ?>"
                                             class="product-img w-full aspect-square object-cover">
                                     <?php else: ?>
                                         <div class="w-full h-36 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400">
@@ -515,9 +519,15 @@ $categories = [
                         <p class="text-xs text-black-300 mb-4">
                             Add your own products to the marketplace
                         </p>
-                        <a href="product_create.php" class="inline-block glass from-blue-200 to-blue-300 text-orange-500 font-bold px-6 py-2.5 rounded-full shadow-lg shadow-blue-500/30 hover:shadow-xl transition">
-                            <i class="fas fa-plus mr-2"></i> Add New Product
-                        </a>
+                        <?php if ($can_add): ?>
+                            <a href="product_create.php" class="inline-block glass from-blue-200 to-blue-300 text-orange-500 font-bold px-6 py-2.5 rounded-full shadow-lg shadow-blue-500/30 hover:shadow-xl transition">
+                                <i class="fas fa-plus mr-2"></i> Add New Product
+                            </a>
+                        <?php else: ?>
+                            <a href="register.php" class="inline-block bg-white text-orange-600 font-bold px-6 py-2.5 rounded-full shadow-lg">
+                                <i class="fas fa-store mr-2"></i> Register as Seller
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </section>

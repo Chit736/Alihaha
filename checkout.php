@@ -209,7 +209,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                                 <div class="p-3 flex gap-3 hover:bg-orange-50/40 transition">
                                     <div class="relative flex-shrink-0">
                                         <?php if ($item['image']): ?>
-                                            <img src="image/<?php echo htmlspecialchars($item['image']); ?>" class="w-20 h-20 object-cover rounded-xl">
+                                            <img src="upload/logos/<?php echo htmlspecialchars($item['image']); ?>" class="w-20 h-20 object-cover rounded-xl">
                                         <?php else: ?>
                                             <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center text-gray-400"><i class="fas fa-image"></i></div>
                                         <?php endif; ?>
